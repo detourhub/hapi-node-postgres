@@ -1,6 +1,7 @@
 'use strict';
 
 const Hoek = require('hoek');
+const Promise = require('bluebird');
 let Pg = require('pg');
 
 
@@ -30,7 +31,7 @@ exports.register = function (server, options, next) {
             }
 
             request.pg = {
-                client: client,
+                client: Promise.promisifyAll(client),
                 done: done,
                 kill: false
             };
